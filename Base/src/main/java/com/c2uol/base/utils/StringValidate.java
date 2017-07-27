@@ -50,4 +50,34 @@ public class StringValidate {
 		}
 		return true;
 	}
+	
+	 /**
+     * 将集合组装成字符串
+     * for example: str1,str2,str3
+     * 中间使用逗号（，）分隔
+     * @param e 实现Collection 的集合类型
+     * @return
+     */
+    public String parseArray2str(Collection e){
+
+        if(e instanceof  Collection == false){
+            throw new RuntimeException("params is not implement Interface Collection . ");
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        if (e.size() <= 0  ) return  null;
+
+        Iterator it = e.iterator();
+        int flag = 0;
+        while (it.hasNext()){
+            sb.append(it.next());
+            flag++;
+
+            if(it.hasNext()){
+                sb.append(",");
+            }
+        }
+        return sb.toString();
+    }
 }
