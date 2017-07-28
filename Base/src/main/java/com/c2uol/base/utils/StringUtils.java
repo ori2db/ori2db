@@ -1,5 +1,8 @@
 package com.c2uol.base.utils;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 /**
  * 
  * @描述: 字符效验工具
@@ -58,7 +61,7 @@ public class StringUtils {
      * @param e 实现Collection 的集合类型
      * @return
      */
-    public String parseArray2str(Collection e){
+    public String parseArray2str(Collection<String> e){
 
         if(e instanceof  Collection == false){
             throw new RuntimeException("params is not implement Interface Collection . ");
@@ -68,12 +71,9 @@ public class StringUtils {
 
         if (e.size() <= 0  ) return  null;
 
-        Iterator it = e.iterator();
-        int flag = 0;
+        Iterator<String> it = e.iterator();
         while (it.hasNext()){
             sb.append(it.next());
-            flag++;
-
             if(it.hasNext()){
                 sb.append(",");
             }
