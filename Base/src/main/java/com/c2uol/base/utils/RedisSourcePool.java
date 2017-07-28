@@ -38,7 +38,7 @@ public class RedisSourcePool {
 	 *
 	 */
 	public Jedis getResrouce(String redisPoolKey) throws NullPointerException {
-		if (StringValidate.isEmpty(redisPoolKey)) {
+		if (StringUtils.isEmpty(redisPoolKey)) {
 			logger.error("获取数据源失败！数据源key为空！");
 			return null;
 		}

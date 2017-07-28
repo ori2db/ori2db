@@ -8,9 +8,9 @@ package com.c2uol.base.utils;
  * @时间: 2017年7月27日下午10:23:13
  *
  */
-public class StringValidate {
+public class StringUtils {
 
-	private StringValidate() {
+	private StringUtils() {
 
 	}
 
