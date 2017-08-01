@@ -1,7 +1,8 @@
 package com.c2uol.base.redis;
 
-import javax.annotation.Resource;
+import java.util.Map;
 
+import javax.annotation.Resource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Scope;
@@ -29,7 +30,7 @@ public class RedisClient {
     RedisSourcePool redisSourcePool;
 
     public RedisClient() {
-        
+
     }
 
     /**
@@ -54,6 +55,11 @@ public class RedisClient {
 
     private Jedis jedis = null;
 
+    @SuppressWarnings(value = "all")
+    private Jedis getJedis() {
+        return jedis;
+    }
+
     /**
      * 
      * @描述: redis get
@@ -69,26 +75,46 @@ public class RedisClient {
             return jedis.get(key);
         } catch (Exception e) {
             logger.error("", e);
-        } finally {
-            jedis.close();
         }
         return null;
     }
 
-    public void set(String key, String value, long expire) {
-
+    public String set(String key, String value, int sec) {
+        return this.set(key.getBytes(), value.getBytes(), sec);
     }
 
-    public void set(String key, String value) {
-        try {
+    public String set(String key, String value) {
+        return this.set(key.getBytes(), value.getBytes());
+    }
 
+    public String set(byte[] key, byte[] value) {
+        try {
+            return jedis.set(key, value);
+        } catch (Exception e) {
+            logger.error("", e);
+        }
+        return null;
+    }
+
+    public String set(byte[] key, byte[] value, int sec) {
+        try {
+            String result = jedis.set(key, value);
+            jedis.expire(key, sec);
+            return result;
+        } catch (Exception e) {
+            logger.error("", e);
+        }
+        return null;
+    }
+
+    public String hmset(String key, Map<String, String> params) {
+        try {
+            return jedis.hmset(key, params);
         } catch (Exception e) {
 
+        } finally {
+
         }
+        return null;
     }
-
-    public void set(String key, byte[] value) {
-
-    }
-
 }

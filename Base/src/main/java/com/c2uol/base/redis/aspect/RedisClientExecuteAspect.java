@@ -1,16 +1,21 @@
 package com.c2uol.base.redis.aspect;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import javax.annotation.Resource;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
 import com.c2uol.base.redis.RedisClient;
 import com.c2uol.base.utils.RedisSourcePool;
+
+import redis.clients.jedis.Jedis;
 
 @Aspect
 @Component
@@ -29,19 +34,29 @@ public class RedisClientExecuteAspect {
     @Resource
     RedisSourcePool redisSourcePool;
 
-    @Before("execution(* com.c2uol.base.redis.RedisClient.conf(..))")
-    public void before(JoinPoint point) {
-        logger.info("redis 客户端切面开始...");
-        Object[] args = point.getArgs();
-        String db_name = null;
-        Integer node = 0;
-        if (args[0] instanceof String) {
-            db_name = String.valueOf(args[0]);
+    @After("!execution(* com.c2uol.base.redis.RedisClient.conf(..)) and execution(* com.c2uol.base.redis.RedisClient.*(..))")
+    public void after(JoinPoint point) {
+        logger.info("redis 客户端开始关闭jedis连接通道...");
+        RedisClient client = (RedisClient) point.getTarget();
+        try {
+            Method method = client.getClass().getDeclaredMethod("getJedis");
+            method.setAccessible(true);
+            Object result = method.invoke(client);
+            if (result == null || !(result instanceof Jedis)) {
+                return;
+            }
+            Jedis jedis = (Jedis) result;
+            jedis.close();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
         }
-        if (args[1] instanceof Integer) {
-            node = Integer.parseInt(args[1].toString());
-        }
-        RedisClient client = (RedisClient)point.getTarget();
-        client.conf(db_name, node);
     }
 }
