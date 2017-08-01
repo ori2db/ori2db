@@ -29,11 +29,8 @@ public class RedisClient {
     RedisSourcePool redisSourcePool;
 
     public RedisClient() {
-
+        
     }
-
-    private String db_name;
-    private int node;
 
     /**
      * 
@@ -46,11 +43,6 @@ public class RedisClient {
      *
      */
     public void conf(String db_name, int node) {
-        this.db_name = db_name;
-        this.node = node;
-    }
-
-    private void validate() {
         if (db_name == null) {
             new RedisClientException("database name not is null.");
         }
@@ -73,7 +65,6 @@ public class RedisClient {
      *
      */
     public String get(String key) {
-        validate();
         try {
             return jedis.get(key);
         } catch (Exception e) {

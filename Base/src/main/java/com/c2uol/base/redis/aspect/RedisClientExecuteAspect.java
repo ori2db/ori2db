@@ -9,6 +9,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
+import com.c2uol.base.redis.RedisClient;
 import com.c2uol.base.utils.RedisSourcePool;
 
 @Aspect
@@ -28,17 +29,19 @@ public class RedisClientExecuteAspect {
     @Resource
     RedisSourcePool redisSourcePool;
 
-    @Before("execution(* com.c2uol.base.redis.RedisClient.*(..))")
+    @Before("execution(* com.c2uol.base.redis.RedisClient.conf(..))")
     public void before(JoinPoint point) {
         logger.info("redis 客户端切面开始...");
         Object[] args = point.getArgs();
-        String database = null;
-        Integer db = 0;
+        String db_name = null;
+        Integer node = 0;
         if (args[0] instanceof String) {
-            database = String.valueOf(args[0]);
+            db_name = String.valueOf(args[0]);
         }
         if (args[1] instanceof Integer) {
-            db = Integer.parseInt(args[1].toString());
+            node = Integer.parseInt(args[1].toString());
         }
+        RedisClient client = (RedisClient)point.getTarget();
+        client.conf(db_name, node);
     }
 }

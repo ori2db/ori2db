@@ -30,7 +30,7 @@ public class RedisSourcePoolTester {
     @Test
     public void testerRedisClient() {
         RedisClient redisClient = applicationContext.getBean("redisClient", RedisClient.class);
-        redisClient.conf("jedisPool_default", 1);
+        redisClient.conf("jedisPool_default", 0);
         String data = redisClient.get("tester");
         System.out.println(data);
     }
