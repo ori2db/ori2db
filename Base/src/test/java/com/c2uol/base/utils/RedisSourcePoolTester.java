@@ -1,5 +1,8 @@
 package com.c2uol.base.utils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -22,16 +25,15 @@ public class RedisSourcePoolTester {
     public void testerGetConnection() {
         RedisSourcePool redisSourcePool = applicationContext.getBean("redisSourcePool", RedisSourcePool.class);
         Jedis jedis = redisSourcePool.getResrouce("jedisPool_default");
-        jedis.select(0);
-        jedis.set("tester", "hello world");
-        jedis.close();
     }
 
     @Test
     public void testerRedisClient() {
         RedisClient redisClient = applicationContext.getBean("redisClient", RedisClient.class);
         redisClient.conf("jedisPool_default", 0);
-        String data = redisClient.get("tester");
-        System.out.println(data);
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("001", "hello");
+        String result = redisClient.hmset("tester002", map);
+        System.out.println(result);
     }
 }
