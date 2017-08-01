@@ -60,7 +60,6 @@
 		</dependency>
 
 		<dependency>
-<<<<<<< HEAD
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
 			<version>4.3.10.RELEASE</version>
@@ -84,12 +83,6 @@
 			<version>1.2.31</version>
 		</dependency>
 
-=======
-            <groupId>com.qcloud</groupId>
-            <artifactId>cos_api</artifactId>
-            <version>4.4</version>
-		</dependency>
->>>>>>> dev
 
 	</dependencies>
 </project>
