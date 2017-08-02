@@ -5,6 +5,8 @@
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:task="http://www.springframework.org/schema/task"  
 	xsi:schemaLocation="
+        http://www.springframework.org/schema/task 
+        http://www.springframework.org/schema/task/spring-task.xsd
         http://www.springframework.org/schema/aop 
         http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
         http://www.springframework.org/schema/task  
@@ -25,8 +27,14 @@
 	<!-- 标识使用注解方式 -->
 	<context:annotation-config />
 	
+	<!-- 任务调度器 -->
+	<task:scheduler id="scheduler" pool-size="10"/>
+	
 	<!-- 标识任务使用注解方式 -->
-	<task:annotation-driven/>
+	<task:executor id="executor" pool-size="10"/>
+
+	<!-- 开启注解调度支持 @Async @Scheduled -->
+	<task:annotation-driven executor="executor"	scheduler="scheduler" proxy-target-class="true" />
 
 	<!-- 导入多数据源redis -->
 	<import resource="redis_databases.xml" />
