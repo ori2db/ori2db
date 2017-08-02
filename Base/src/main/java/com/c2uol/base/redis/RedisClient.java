@@ -111,9 +111,7 @@ public class RedisClient {
         try {
             return jedis.hmset(key, params);
         } catch (Exception e) {
-
-        } finally {
-
+            logger.error("", e);
         }
         return null;
     }
