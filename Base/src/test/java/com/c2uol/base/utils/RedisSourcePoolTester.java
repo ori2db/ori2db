@@ -27,7 +27,7 @@ public class RedisSourcePoolTester {
         Jedis jedis = redisSourcePool.getResrouce("jedisPool_default");
     }
 
-    @Test
+    // @Test
     public void testerRedisClient() {
         RedisClient redisClient = applicationContext.getBean("redisClient", RedisClient.class);
         redisClient.conf("jedisPool_default", 0);
@@ -35,5 +35,12 @@ public class RedisSourcePoolTester {
         map.put("001", "hello");
         String result = redisClient.hmset("tester002", map);
         System.out.println(result);
+    }
+
+    @Test
+    public void testTask() throws InterruptedException {
+        while (true) {
+
+        }
     }
 }
