@@ -1,11 +1,9 @@
 package com.c2uol.base.redis;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import javax.annotation.Resource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,7 +11,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 import com.c2uol.base.redis.exception.RedisClientException;
 import com.c2uol.base.utils.RedisSourcePool;
-
 import redis.clients.jedis.Jedis;
 
 /**
@@ -381,6 +378,5 @@ public class RedisClient {
         }
         return null;
     }
-    
-    
+
 }
