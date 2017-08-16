@@ -27,7 +27,7 @@ public class RedisSourcePoolTester {
         Jedis jedis = redisSourcePool.getResrouce("jedisPool_default");
     }
 
-    // @Test
+     @Test
     public void testerRedisClient() {
         RedisClient redisClient = applicationContext.getBean("redisClient", RedisClient.class);
         redisClient.conf("jedisPool_default", 0);
@@ -37,7 +37,7 @@ public class RedisSourcePoolTester {
         System.out.println(result);
     }
 
-    @Test
+    //@Test
     public void testTask() throws InterruptedException {
         while (true) {
 
