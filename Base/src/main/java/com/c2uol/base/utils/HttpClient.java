@@ -59,13 +59,17 @@ public class HttpClient {
 
     /**
      * 
-     * @描述: http请求
+     * @描述: HTTP请求
+     * @作者: Lyon
      * @参数: @param path
+     * @参数: @param method
+     * @参数: @param content
+     * @参数: @param requestProperty
+     * @参数: @param readTimeout
+     * @参数: @param connTimeout
      * @参数: @return
      * @返回值: byte[]
-     * @版本: v1.0
-     * @时间: 2017年7月26日上午12:44:33
-     *
+     * @时间: 2017年8月17日 下午10:54:54
      */
     public byte[] httpUrlConnection(String path, com.c2uol.base.enums.HttpClientMethod method, String content, Map<String, String> requestProperty, int readTimeout, int connTimeout) {
         logger.info("http connection:" + path);
