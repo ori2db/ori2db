@@ -14,26 +14,6 @@ public class NetworkConstants {
     }
 
     /**
-     * POST 请求
-     */
-    public static final String POST = "POST";
-
-    /**
-     * GET 请求
-     */
-    public static final String GET = "GET";
-
-    /**
-     * delete 请求
-     */
-    public static final String DELETE = "DELETE";
-
-    /**
-     * put 请求
-     */
-    public static final String PUT = "PUT";
-
-    /**
      * http请求url过滤规则
      */
     public static final String HTTP_CONN_URL_REGEX = "^(http:\\/\\/www\\.|http:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$";

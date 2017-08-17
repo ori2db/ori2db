@@ -17,6 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.c2uol.base.constants.NetworkConstants;
+import com.c2uol.base.enums.HttpClientMethod;
 
 /**
  * 
@@ -66,7 +67,7 @@ public class HttpClient {
      * @时间: 2017年7月26日上午12:44:33
      *
      */
-    public byte[] httpUrlConnection(String path, String method, String content, Map<String, String> requestProperty, int readTimeout, int connTimeout) {
+    public byte[] httpUrlConnection(String path, com.c2uol.base.enums.HttpClientMethod method, String content, Map<String, String> requestProperty, int readTimeout, int connTimeout) {
         logger.info("http connection:" + path);
         Matcher matcher = http_pattern.matcher((path == null ? "" : path));
         if (!matcher.find()) {
@@ -98,15 +99,15 @@ public class HttpClient {
             }
 
             /* 检查请求方式 */
-            if (StringValidate.isEmpty(method) || (!NetworkConstants.GET.equals(method) && !method.equals(NetworkConstants.POST))) {
-                method = NetworkConstants.GET;
+            if (method == null) {
+                method = HttpClientMethod.GET;
             }
-            conn.setRequestMethod(method);
+            conn.setRequestMethod(method.toString());
             conn.setDoInput(true);
             conn.setDoOutput(true);
 
             /* 如果是post请求，并且请求全文不是空，写入数据 */
-            if (NetworkConstants.POST.equals(method) && !StringValidate.isEmpty(content)) {
+            if ("POST".equals(method.toString()) && !StringValidate.isEmpty(content)) {
                 OutputStream out = conn.getOutputStream();
                 out.write(content.getBytes());
                 out.flush();
