@@ -18,7 +18,7 @@ import redis.clients.jedis.Jedis;
  * @描述: redis 客户端
  * @作者: Lyon
  * @版本: v1.0
- * @时间: 2017年8月16日 下午11:42:30
+ * @时间: 2017年7月19日 下午11:42:30
  */
 @Repository
 @Scope(value = "prototype")

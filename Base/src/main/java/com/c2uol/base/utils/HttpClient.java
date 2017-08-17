@@ -11,11 +11,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.c2uol.base.constants.NetworkConstants;
 import com.c2uol.base.enums.HttpClientMethod;
 
@@ -71,7 +69,7 @@ public class HttpClient {
      * @返回值: byte[]
      * @时间: 2017年8月17日 下午10:54:54
      */
-    public byte[] httpUrlConnection(String path, com.c2uol.base.enums.HttpClientMethod method, String content, Map<String, String> requestProperty, int readTimeout, int connTimeout) {
+    public byte[] httpUrlConnection(String path, HttpClientMethod method, String content, Map<String, String> requestProperty, int readTimeout, int connTimeout) {
         logger.info("http connection:" + path);
         Matcher matcher = http_pattern.matcher((path == null ? "" : path));
         if (!matcher.find()) {
