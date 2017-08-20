@@ -129,6 +129,25 @@ public class RedisClient {
 
     /**
      * 
+     * @描述: 将 key 所储存的值加上增量 increment
+     * @作者: Lyon
+     * @参数: @param key
+     * @参数: @param integer
+     * @参数: @return
+     * @返回值: Long
+     * @时间: 2017年8月20日 下午10:09:29
+     */
+    public Long incrby(String key, long integer) {
+        try {
+            return jedis.incrBy(key, integer);
+        } catch (Exception e) {
+            logger.error("", e);
+        }
+        return null;
+    }
+
+    /**
+     * 
      * @描述: 删除给定的一个或多个 key
      * @作者: Lyon
      * @参数: @param key
@@ -209,6 +228,85 @@ public class RedisClient {
 
     /**
      * 
+     * @描述: 为哈希表 key 中的域 field 的值加上增量 increment
+     * @作者: Lyon
+     * @参数: @param key
+     * @参数: @param field
+     * @参数: @param value
+     * @参数: @return
+     * @返回值: Long
+     * @时间: 2017年8月20日 下午10:15:34
+     */
+    public Long hincryBy(String key, String field, long value) {
+        try {
+            return jedis.hincrBy(key, field, value);
+        } catch (Exception e) {
+            logger.error("", e);
+        }
+        return null;
+    }
+
+    /**
+     * 
+     * @描述: 查看哈希表 key 中，给定域 field 是否存在
+     * @作者: Lyon
+     * @参数: @param key
+     * @参数: @param field
+     * @参数: @return
+     * @返回值: boolean
+     * @时间: 2017年8月20日 下午10:19:21
+     */
+    public boolean hexists(String key, String field) {
+        try {
+            return jedis.hexists(key, field);
+        } catch (Exception e) {
+            logger.error("", e);
+        }
+        return false;
+    }
+
+    /**
+     * 
+     * @描述: 返回哈希表 key 中所有域的值
+     * @作者: Lyon
+     * @参数: @param key
+     * @参数: @return
+     * @返回值: List<String>
+     * @时间: 2017年8月20日 下午10:20:20
+     */
+    public List<String> hvals(String key) {
+        try {
+            return jedis.hvals(key);
+        } catch (Exception e) {
+            logger.error("", e);
+        }
+        return null;
+    }
+
+    /**
+     * 
+     * @描述: 返回哈希表 key 中的所有域
+     * @作者: Lyon
+     * @参数: @param key
+     * @参数: @return
+     * @返回值: List<String>
+     * @时间: 2017年8月20日 下午10:23:11
+     */
+    public List<String> hkeys(String key) {
+        List<String> arr = new ArrayList<String>();
+        try {
+            Set<String> result = jedis.hkeys(key);
+            if (result != null && result.size() > 0) {
+                arr.addAll(result);
+            }
+        } catch (Exception e) {
+            logger.error("", e);
+        }
+        return arr;
+    }
+
+    /**
+     * 
      * @描述: 同时将多个 field-value (域-值)对设置到哈希表 key 中
      * @作者: Lyon
      * @参数: @param key
@@ -259,6 +357,24 @@ public class RedisClient {
     public Long lpush(String key, String... strings) {
         try {
             return jedis.lpush(key, strings);
+        } catch (Exception e) {
+            logger.error("", e);
+        }
+        return null;
+    }
+
+    /**
+     * 
+     * @描述: 返回列表 key 的长度
+     * @作者: Lyon
+     * @参数: @param key
+     * @参数: @return
+     * @返回值: Long
+     * @时间: 2017年8月20日 下午10:11:38
+     */
+    public Long llen(String key) {
+        try {
+            return jedis.llen(key);
         } catch (Exception e) {
             logger.error("", e);
         }
